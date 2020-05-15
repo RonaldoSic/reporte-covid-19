@@ -1,28 +1,33 @@
 import React, { Component } from 'react'
 import './formRegister.css'
+import {getPeopleData} from '../Data/usDataPeople'
 export default class FomrRegister extends Component {
     constructor(props){
         super(props);
         this.state ={
-            datosPersonales: {
                 nombres:'',
                 apellidos:'',
                 edad:'',
-                sexo:'Masculino'
-            },
-            datosdeUbicacion:{
+                sexo:'Masculino',
                 pais:'',
-                estado_O_departamento:'',
-                ciudad_O_municipio:''
-            },
-            fecha: null            
+                estado_Depart:'',
+                ciudad_Muni:'',
+                fecha: null            
         }
     }
     
-    componentDidMount() {
+    async componentDidMount() {
         this.setDate()
+        await this.loadDataPeople()
     }
     
+    // consultamos nuesteos datos 
+    loadDataPeople = async () =>{
+        const dataPeople = await getPeopleData();
+        console.log(dataPeople)
+    }
+
+
     setDate =() => {
         const date = new Date();
         let fechaFormat = new Intl.DateTimeFormat('es-MX', { month: 'long', day: 'numeric', year:'numeric' }).format(new Date(date))
@@ -34,14 +39,21 @@ export default class FomrRegister extends Component {
                 sexo:e.target.value
             }
         })
-        
     }
-    handleSubmit = (e) =>{
-        e.preventeDefault();
+    handleChangeInputs = (e) =>{
+            this.setState({[e.target.name]: e.target.value})
+        console.log(e.target.name,' ',e.target.value)        
+    }
 
+    handleSubmit = (e) =>{
+        e.preventDefault();
+        let resp = JSON.stringify(this.state);
+        alert(resp)
+        console.log(this.state, resp)
     }
+
     render() {
-        const {fecha, datosPersonales, datosdeUbicacion } = this.state;
+        const {fecha} = this.state;
         return (
             <div className="wrapp">
                 <div className="container-form">                    
@@ -57,17 +69,18 @@ export default class FomrRegister extends Component {
                             <div className="container-inputs">
                                 <div className="inputs-item">
                                     <label>Nombres</label>
-                                    <input type="text" />
+                                    <input name="nombres" type="text" onChange={this.handleChangeInputs}/>
                                 </div>
                                 <div className="inputs-item">                                <label>Apellidos</label>
-                                    <input type="text" />
+                                    <input name="apellidos" type="text" onChange={this.handleChangeInputs} />
                                 </div>
                                 <div className="inputs-item">                                
                                     <label>Edad</label>
-                                    <input type="number" />
+                                    <input name="edad" type="number" onChange={this.handleChangeInputs}/>
                                 </div>
-                                <div className="inputs-item">                 <label>Sexo</label>               
-                                    <select value={this.state.datosPersonales.sexo} onChange={this.handleChange}>
+                                <div className="inputs-item">                 
+                                <label>Sexo</label>               
+                                    <select value={this.state.sexo} onChange={this.handleChange}>
                                         <option>Masculino</option>
                                         <option>Femenino</option>
                                         <option>Otro</option>
@@ -79,17 +92,17 @@ export default class FomrRegister extends Component {
                         <div className="sub-container container-ubicacion">
                         <h3>Ubicación</h3>
                             <div className="container-inputs">
-                                <div className="inputs-item">                                
+                                <div className="inputs-item">                           
                                     <label>País</label>
-                                    <input type="text" />
+                                    <input name="pais" type="text" onChange={this.handleChangeInputs}/>
                                 </div>
                                 <div className="inputs-item">                                
-                                    <label>Departamento o Estado</label>
-                                    <input type="text" />
+                                    <label>Departamento o estado</label>
+                                    <input name="estado_Depart" type="text" onChange={this.handleChangeInputs} />
                                 </div>
                                 <div  className="inputs-item">                                
                                     <label>Municipio</label>
-                                    <input type="text" />
+                                    <input name="ciudad_Muni" type="text" onChange={this.handleChangeInputs} />
                                 </div>
                             </div>    
                         </div>
