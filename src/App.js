@@ -30,7 +30,7 @@ export default class App extends Component {
     await this.loadDatabyCountry('spain');
     await this.loadDataGlobal();
     const tt = titlesAllSections();
-    console.log(tt)
+    // console.log(tt)
     this.setState({
         tituloMundial:tt.titleMundial,
         parrafoMundial:tt.parrafoMundial,

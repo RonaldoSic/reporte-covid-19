@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import './section.css';
 import { Line, Bar } from 'react-chartjs-2';
 import { byCountry, searchCountry} from '../Data/countryData'
+import FomrRegister from './formRegister'
 export default class Section extends Component {
     static propTypes = {
         title:PropTypes.string.isRequired,
         description:PropTypes.string.isRequired,
         id_section: PropTypes.string.isRequired,
-        dataChar: PropTypes.object.isRequired,
-        titleChar:PropTypes.string.isRequired
+        // dataChar: PropTypes.object.isRequired,
+        // titleChar:PropTypes.string.isRequired
         // optionsChar: PropTypes.object.isRequired        
     }
     constructor(props){
-        super(props);        
-        if(!props.title){console.log('No hay titulo');} 
+        super(props);                
         this.state ={
             datachar: this.props.dataChar,
             optionsChar: this.props.dataChar,
@@ -99,7 +99,7 @@ export default class Section extends Component {
                     mode: 'x',
                 }
             },
-            countryValue: 'spain',
+            countryValue: "Spain",
             selectPais: null,
             datacharPaises:this.props.dataChar
             }
@@ -117,7 +117,7 @@ export default class Section extends Component {
         const options = allConuntrys.map((pais) =>
             <option className="this-country" key={pais}>{pais}</option>
         )
-        const dataReturn = (<select onChange={this.handleChangeCountry} className="list-country">{options}</select>);
+        const dataReturn = (<select className="list-country" onChange={this.handleChangeCountry}>{options}</select>);
         this.setState({ selectPais: dataReturn })
         return (dataReturn)
     }
@@ -125,7 +125,9 @@ export default class Section extends Component {
     handleChangeCountry = async (event) => {
         this.setState({countryValue:event.target.value})
         const val = this.alltheCountry(this.state.countryValue)
-        this.setState({datacharPaises:val})
+        // console.log("pais seleccionado del state",this.state.countryValue)
+        this.setState({datacharPaises:val,
+            countryValue:event.target.value})
     }
 
     static defaultProps ={
@@ -143,7 +145,7 @@ export default class Section extends Component {
                 </div>
                 {id_section==="pais"?<div className="container-select">{selectPais}</div>:''}
                 {id_section==="insert-data"
-                    ?<div>algo</div>
+                    ?<FomrRegister />
                     :<div className="chart-section">
                         {id_section==="mundial"
                             ?<Bar data= {dataChar} options={CharBar}/>

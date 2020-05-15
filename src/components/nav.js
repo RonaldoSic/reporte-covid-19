@@ -45,7 +45,7 @@ export default class Nav extends Component {
                         <a className="go-to" href="#guate">Solo Guatemala</a>
                     </li>
                     <li className="item-menu">
-                        <a className="go-to" href="#registrar">Registrar caso</a>
+                        <a className="go-to" href="#insert-data">Registrar caso</a>
                     </li>
                 </ul>
             </nav>
