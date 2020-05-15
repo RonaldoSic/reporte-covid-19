@@ -1,0 +1,82 @@
+/* Nav principal */
+/* listado de colores 
+
+    blue-dark #2C3E50
+    orange-dark ##E74C3C
+    withe #ECF0F1
+    light-blue #3498DB
+    medium-blue #2980B9
+*/
+
+.nav-container{
+    transition: all .4s ease-in-out 0s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 5;
+    position: fixed;
+    width: 100%;
+    height: 70px;
+    background-color: transparent;
+    box-shadow: 0 6px 9px #00000032;
+}
+.solid{
+    transition: all .4s ease-in-out 0s;
+    background-color: #ffffffe1;
+}
+/* contenedor del logo o slogan */
+.nav .logo-container{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    /* border: #575783 solid .8px; */
+    width: 30%;
+    height: auto;
+}
+/* img o texto dentro del contenedor del logo */
+.logo-container p{
+    /* background-color: #56909710; */
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 1.9em;
+}
+.logo-container p a{
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    color: var(--logo);
+    /* color:rgb(4, 170, 45) */
+}
+.logo-container p a:hover{
+    color: #31749b;
+}
+
+/* menu de opciones para navegar */
+.nav .ul-menu{
+    width: 70%;
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    padding: 2em;
+    /* border: #569097 solid 2px; */
+    /* background-color: #00000005; */
+}
+.nav .ul-menu .item-menu{
+    justify-content: space-around;
+}
+.nav .ul-menu .item-menu .go-to{
+    text-decoration: none;
+    font-size: 1.2em;
+    display: inline-block;
+    padding: 4px 20px;
+    transition: all .3s ease 0s;
+    color: var(--links);
+}
+.nav .ul-menu .item-menu .go-to:hover{
+    color: rgb(147, 19, 197);
+    font-size: 1.22em;
+}

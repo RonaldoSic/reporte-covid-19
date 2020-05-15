@@ -1,0 +1,78 @@
+.section{
+    box-shadow: -5px -5px 10px .3px #aaa, 5px 5px 5px #bbb;
+    /* height: 100vh; */
+    width: 95%;
+    overflow: hidden;
+    background-color: var(--bg-sections);
+    margin: 0 auto;
+    padding-top: 5%;
+    /* border-bottom: #000000f0 solid .3px; */
+}
+.info-section{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 30%;
+}
+.info-section h2{
+    padding-top: 1em;
+    color: var(--title);
+    font-size: 2.3em;
+    width: 60%;
+    text-align: center;
+}
+.info-section p{
+    width: 90%;
+    height: 100%;
+    padding: 2.4% 1.3em;
+    text-align: center;
+    font-size: 1.25em;
+    color: var(--paragrhap);
+}
+/*  */
+.container-select{
+    display: flex;
+    justify-content: flex-end;
+    align-self: center;
+    align-items: center;    
+    width: 100%;
+    padding-right: 10%;
+}
+.container-select .list-country{
+    appearance: none;
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    display: inline-block;
+	width: 25%;
+	cursor: pointer;
+  	padding: 7px 10px;
+  	height: 42px;
+  	outline: 0; 
+  	border: 0;
+	border-radius: 0;
+	background: #e8f7f6;
+	font-size: 1.3em;
+	color: #0c8eda;
+	font-family: 
+	'Quicksand', sans-serif;
+	border:2px solid rgba(11, 172, 164, 0.822);
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.25s ease;   
+    box-shadow: 2px 3px 6px #0000008c;
+}
+.container-select .list-country::-ms-expand {
+    display: none;
+}
+
+/* .list-country .this-country:hover */
+/*  */
+.chart-section{
+    /* border: #aaa solid 1px; */
+    padding: 5%;
+    margin: 0 auto;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
