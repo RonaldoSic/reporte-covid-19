@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import './formRegister.css'
+import {setPeopleData} from "../Data/usDataPeople";
 
 export default class FomrRegister extends Component {
     constructor(props){
         super(props);
         this.state ={
-                nombres:'',
-                apellidos:'',
-                edad:'',
-                sexo:'Masculino',
-                pais:'',
-                estado_Depart:'',
-                ciudad_Muni:'',
-                fecha: null            
+            code :'0',
+            first_name:'',
+            last_name:'',
+            age: '',
+            gender:'Masculino',
+            country:'',
+            department:'',
+            city:''
         }
     }
     
@@ -25,7 +26,7 @@ export default class FomrRegister extends Component {
     setDate =() => {
         const date = new Date();
         let fechaFormat = new Intl.DateTimeFormat('es-MX', { month: 'long', day: 'numeric', year:'numeric' }).format(new Date(date))
-        this.setState({fecha:fechaFormat})
+        //this.setState({fecha:fechaFormat})
     }
     handleChange = (e) => {
         this.setState({
@@ -36,13 +37,14 @@ export default class FomrRegister extends Component {
     }
     handleChangeInputs = (e) =>{
             this.setState({[e.target.name]: e.target.value})
-        console.log(e.target.name,' ',e.target.value)        
+            // console.log(e.target.name,' ',e.target.value)
     }
 
-    handleSubmit = (e) =>{
+    handleSubmit = async (e)  =>{
         e.preventDefault();
         let resp = JSON.stringify(this.state);
-        console.log(this.state, resp)
+        const res = await setPeopleData(resp);
+        console.log(res)
     }
 
     render() {
@@ -62,18 +64,18 @@ export default class FomrRegister extends Component {
                             <div className="container-inputs">
                                 <div className="inputs-item">
                                     <label>Nombres</label>
-                                    <input name="nombres" type="text" onChange={this.handleChangeInputs}/>
+                                    <input name="first_name" type="text" onChange={this.handleChangeInputs}/>
                                 </div>
                                 <div className="inputs-item">                                <label>Apellidos</label>
-                                    <input name="apellidos" type="text" onChange={this.handleChangeInputs} />
+                                    <input name="last_name" type="text" onChange={this.handleChangeInputs} />
                                 </div>
                                 <div className="inputs-item">                                
                                     <label>Edad</label>
-                                    <input name="edad" type="number" onChange={this.handleChangeInputs}/>
+                                    <input name="age" type="number" onChange={this.handleChangeInputs}/>
                                 </div>
                                 <div className="inputs-item">                 
                                 <label>Sexo</label>               
-                                    <select value={this.state.sexo} onChange={this.handleChange}>
+                                    <select value={this.state.gender} onChange={this.handleChange}>
                                         <option>Masculino</option>
                                         <option>Femenino</option>
                                         <option>Otro</option>
@@ -87,15 +89,15 @@ export default class FomrRegister extends Component {
                             <div className="container-inputs">
                                 <div className="inputs-item">                           
                                     <label>País</label>
-                                    <input name="pais" type="text" onChange={this.handleChangeInputs}/>
+                                    <input name="country" type="text" onChange={this.handleChangeInputs}/>
                                 </div>
                                 <div className="inputs-item">                                
                                     <label>Departamento o estado</label>
-                                    <input name="estado_Depart" type="text" onChange={this.handleChangeInputs} />
+                                    <input name="department" type="text" onChange={this.handleChangeInputs} />
                                 </div>
                                 <div  className="inputs-item">                                
                                     <label>Municipio</label>
-                                    <input name="ciudad_Muni" type="text" onChange={this.handleChangeInputs} />
+                                    <input name="city" type="text" onChange={this.handleChangeInputs} />
                                 </div>
                             </div>    
                         </div>

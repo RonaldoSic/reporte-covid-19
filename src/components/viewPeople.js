@@ -22,20 +22,19 @@ export default class ViewPeople extends Component {
     loadPeoplesData = async () =>{
         const allDatapeople = await getPeopleData();
         console.log(allDatapeople)
-        const row = allDatapeople.map(data =>
+        const row = allDatapeople.map((data) =>
             <tr className="row-info" key={data.code}>
-                <td>data.first_name</td>
-                <td>data.last_name</td>
-                <td>data.age</td>
-                <td>data.</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{data.first_name}</td>
+                <td>{data.last_name}</td>
+                <td>{data.age}</td>
+                <td>{data.gender}</td>
+                <td>{data.country}</td>
+                <td>{data.department}</td>
+                <td>{data.city}</td>
             </tr>
-        ) 
+        )
         
-        
-        // this.setState({rowTableSubComponet: row})
+        this.setState({rowTableSubComponet: row})
         // console.log(this.state.rowTableSubComponet)
         // allDatapeople.nombres.forEach(element => {
         //     console.log(element)
