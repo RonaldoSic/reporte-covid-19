@@ -39,5 +39,6 @@ export async function guateData () {
         }        
     ];
     allResponse ={labels:arrayDate, datasets:dataSet}
+    // console.log(allResponse)
     return allResponse
 }

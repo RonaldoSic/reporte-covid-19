@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './formRegister.css'
-import {getPeopleData} from '../Data/usDataPeople'
+
 export default class FomrRegister extends Component {
     constructor(props){
         super(props);
@@ -18,14 +18,8 @@ export default class FomrRegister extends Component {
     
     async componentDidMount() {
         this.setDate()
-        await this.loadDataPeople()
     }
     
-    // consultamos nuesteos datos 
-    loadDataPeople = async () =>{
-        const dataPeople = await getPeopleData();
-        console.log(dataPeople)
-    }
 
 
     setDate =() => {
@@ -48,7 +42,6 @@ export default class FomrRegister extends Component {
     handleSubmit = (e) =>{
         e.preventDefault();
         let resp = JSON.stringify(this.state);
-        alert(resp)
         console.log(this.state, resp)
     }
 
