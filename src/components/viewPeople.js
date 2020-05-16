@@ -13,9 +13,11 @@ export default class ViewPeople extends Component {
     loadPeoplesData = async () =>{
         const allDatapeople = await getPeopleData();
         // console.log(allDatapeople,'+++')
+       
         const row = allDatapeople.map(people =>{
+        
             return(
-                <tr key={people.code}className="row-info">
+                <tr key={people.code} className="row-info">
                     <td>{people.first_name}</td>
                     <td>{people.last_name}</td>
                     <td>{people.age}</td>

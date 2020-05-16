@@ -1,6 +1,6 @@
 
 const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-const ruta = 'https://whispering-crag-35590.herokuapp.com/api/v1/cov19';
+const ruta = 'https://whispering-crag-35590.herokuapp.com/api/v1/cov19/';
 let authorization = 'Token 54cff33ba441ec3aeec3d444a6c2cf6ea653a76d';
 
 export async function getPeopleData() {
@@ -16,19 +16,51 @@ export async function getPeopleData() {
     // console.log(arrayData);
     return arrayData;    
 }
-
+ 
+console.log(getPeopleData())
 export async function setPeopleData(data){
-
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': authorization
-        },
-        body: data
-    };
-    fetch(proxyUrl+ruta, requestOptions)
-        .then(response => response.json())
-        .then(data => console.log(data));
+    let taman = 0
+    let lengthkey =  await getPeopleData()
+    const variable = lengthkey.map((item, index) => {
+        if (index != undefined){
+            taman = index
+        }
+    })
+ console.log(taman)
+  fetch(proxyUrl + ruta, {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: authorization
+  },
+  body:  
+    JSON.stringify({
+    "code": taman+1,
+    "first_name": data.first_name,
+    "last_name": data.last_name,
+    "age": data.age,
+    "gender": data.gender,
+    "country": data.country,
+    "department": data.department,
+    "city": data.city
+})
+})
+.then(response => {
+  console.log(response);
+})
+.catch(err => {
+  console.log(err);
+});
+    // const requestOptions = {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         Authorization: authorization
+    //     },
+    //     body: data
+    // };
+    // fetch(proxyUrl+ruta, requestOptions)
+    //     .then(response => response.json())
+    //     .then(data => console.log(data));
 }
 

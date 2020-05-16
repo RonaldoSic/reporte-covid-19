@@ -20,19 +20,16 @@ export default class FomrRegister extends Component {
     async componentDidMount() {
         this.setDate()
     }
-    
-
 
     setDate =() => {
         const date = new Date();
         let fechaFormat = new Intl.DateTimeFormat('es-MX', { month: 'long', day: 'numeric', year:'numeric' }).format(new Date(date))
-        //this.setState({fecha:fechaFormat})
+        this.setState({fecha:fechaFormat})
     }
+
     handleChange = (e) => {
         this.setState({
-            datosPersonales:{
-                sexo:e.target.value
-            }
+                gender:e.target.value
         })
     }
     handleChangeInputs = (e) =>{
@@ -42,7 +39,7 @@ export default class FomrRegister extends Component {
 
     handleSubmit = async (e)  =>{
         e.preventDefault();
-        let resp = JSON.stringify(this.state);
+        let resp = this.state;
         const res = await setPeopleData(resp);
         console.log(res)
     }
