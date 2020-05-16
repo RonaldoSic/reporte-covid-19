@@ -22,7 +22,7 @@ console.log(getPeopleData())
 export async function setPeopleData(data) {
     let taman = 0
     let lengthkey = await getPeopleData()
-    const variable = lengthkey.map((item, index) => {
+    lengthkey.map((item, index) => {
         if (index !== undefined) {
             taman = index
         }

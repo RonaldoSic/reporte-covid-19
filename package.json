@@ -13,7 +13,7 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
-  "homepage": "https://RonaldoSic.github.io/reporte-covid-19/",
+  "homepage": "https://github.com/RonaldoSic/reporte-covid-19",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
