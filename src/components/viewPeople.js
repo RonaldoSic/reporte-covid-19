@@ -12,8 +12,10 @@ export default class ViewPeople extends Component {
     // Get data people
     loadPeoplesData = async () =>{
         const allDatapeople = await getPeopleData();
-        // console.log(allDatapeople,'+++')
-        const row = allDatapeople.map(people =>{
+        // console.log(typeof(allDatapeople),'+++')        
+        const row = allDatapeople.map(people =>{   
+            // console.log(typeof(people),'alskdjfpo93')     
+            console.log(people)
             return(
                 <tr key={people.code}className="row-info">
                     <td>{people.first_name}</td>
