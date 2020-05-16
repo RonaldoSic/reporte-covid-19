@@ -27,8 +27,9 @@ export async function setPeopleData(data) {
             taman = index
         }
         return ''
-    })
-    console.log(taman)
+    });
+
+    console.log(taman + variable)
     fetch(proxyUrl + ruta, {
         method: "POST",
         headers: {
