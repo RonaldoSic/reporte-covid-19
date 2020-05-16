@@ -20,7 +20,6 @@ export default class FomrRegister extends Component {
     async componentDidMount() {
         this.setDate()
     }
-
     setDate =() => {
         const date = new Date();
         let fechaFormat = new Intl.DateTimeFormat('es-MX', { month: 'long', day: 'numeric', year:'numeric' }).format(new Date(date))
@@ -42,6 +41,7 @@ export default class FomrRegister extends Component {
         let resp = this.state;
         const res = await setPeopleData(resp);
         console.log(res)
+        console.log(this.state)
     }
 
     render() {

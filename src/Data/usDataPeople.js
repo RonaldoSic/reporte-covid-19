@@ -13,7 +13,8 @@ export async function getPeopleData() {
     });
     let res = await response.json();
     const arrayData = res.results;  
-    // console.log(arrayData);
+    console.log(arrayData);
+    // console.log(typeof(arrayData),'Es ')
     return arrayData;    
 }
  
