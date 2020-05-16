@@ -1,10 +1,10 @@
 export async function getPeopleData() {
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';    
-    const ruta = 'https://whispering-crag-35590.herokuapp.com/api/v1/cov19';
+    const ruta = 'https://whispering-crag-35590.herokuapp.com/api/v1/cov19/';
     let response = await fetch(proxyUrl+ruta ,{
         method: 'GET',
         headers:{
-            Authorization: 'Token 35d6b5cafec322b8792f4b5cfec55df900d5dd35'
+            Authorization: 'Token 568dfc805a989b7c9e02d7b54bc7a56b5fba27af'
         }
     });
     let res = await response.json();

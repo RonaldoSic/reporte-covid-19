@@ -36,7 +36,7 @@ export default class FomrRegister extends Component {
     }
     handleChangeInputs = (e) =>{
             this.setState({[e.target.name]: e.target.value})
-        console.log(e.target.name,' ',e.target.value)        
+        // console.log(e.target.name,' ',e.target.value)        
     }
 
     handleSubmit = (e) =>{
