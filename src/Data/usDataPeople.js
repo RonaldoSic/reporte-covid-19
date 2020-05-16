@@ -17,51 +17,41 @@ export async function getPeopleData() {
     // console.log(typeof(arrayData),'Es ')
     return arrayData;    
 }
- 
+
 console.log(getPeopleData())
-export async function setPeopleData(data){
+export async function setPeopleData(data) {
     let taman = 0
-    let lengthkey =  await getPeopleData()
+    let lengthkey = await getPeopleData()
     const variable = lengthkey.map((item, index) => {
-        if (index != undefined){
+        if (index !== undefined) {
             taman = index
         }
+        return ''
     })
- console.log(taman)
-  fetch(proxyUrl + ruta, {
-  method: "POST",
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: authorization
-  },
-  body:  
-    JSON.stringify({
-    "code": taman+1,
-    "first_name": data.first_name,
-    "last_name": data.last_name,
-    "age": data.age,
-    "gender": data.gender,
-    "country": data.country,
-    "department": data.department,
-    "city": data.city
-})
-})
-.then(response => {
-  console.log(response);
-})
-.catch(err => {
-  console.log(err);
-});
-    // const requestOptions = {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         Authorization: authorization
-    //     },
-    //     body: data
-    // };
-    // fetch(proxyUrl+ruta, requestOptions)
-    //     .then(response => response.json())
-    //     .then(data => console.log(data));
+    console.log(taman)
+    fetch(proxyUrl + ruta, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: authorization
+        },
+        body:
+            JSON.stringify({
+                "code": taman + 1,
+                "first_name": data.first_name,
+                "last_name": data.last_name,
+                "age": data.age,
+                "gender": data.gender,
+                "country": data.country,
+                "department": data.department,
+                "city": data.city
+            })
+    })
+        .then(response => {
+            console.log(response);
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 

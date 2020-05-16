@@ -13,7 +13,6 @@ export default class ViewPeople extends Component {
     loadPeoplesData = async () =>{
         const allDatapeople = await getPeopleData();
         // console.log(allDatapeople,'+++')
-       
         const row = allDatapeople.map(people =>{
         
             return(

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './formRegister.css'
-import {setPeopleData} from "../Data/usDataPeople";
+import {setPeopleData, getPeopleData} from "../Data/usDataPeople";
 
 export default class FomrRegister extends Component {
     constructor(props){
@@ -13,7 +13,8 @@ export default class FomrRegister extends Component {
             gender:'Masculino',
             country:'',
             department:'',
-            city:''
+            city:'',
+            rowTable: null
         }
     }
     
@@ -25,11 +26,28 @@ export default class FomrRegister extends Component {
         let fechaFormat = new Intl.DateTimeFormat('es-MX', { month: 'long', day: 'numeric', year:'numeric' }).format(new Date(date))
         this.setState({fecha:fechaFormat})
     }
+    // cargando los datos para la tabla
+    loadPeoplesData = async () =>{
+        const allDatapeople = await getPeopleData();
+        const row = allDatapeople.map(people =>{
+        
+            return(
+                <tr key={people.code} className="row-info">
+                    <td>{people.first_name}</td>
+                    <td>{people.last_name}</td>
+                    <td>{people.age}</td>
+                    <td>{people.gender}</td>
+                    <td>{people.country}</td>
+                    <td>{people.department}</td>
+                    <td>{people.city}</td>
+                </tr>
+            )
+        });
+    this.setState({rowTable: row})        
+    }
 
     handleChange = (e) => {
-        this.setState({
-                gender:e.target.value
-        })
+        this.setState({ gender:e.target.value })
     }
     handleChangeInputs = (e) =>{
             this.setState({[e.target.name]: e.target.value})
@@ -39,9 +57,19 @@ export default class FomrRegister extends Component {
     handleSubmit = async (e)  =>{
         e.preventDefault();
         let resp = this.state;
-        const res = await setPeopleData(resp);
-        console.log(res)
-        console.log(this.state)
+        await setPeopleData(resp);
+        this.setState({
+            first_name:'',
+            last_name:'',
+            age: '',
+            gender:'Masculino',
+            country:'',
+            department:'',
+            city:''
+        })
+        // await this.loadPeoplesData();
+        // console.log(res)
+        // console.log(this.state)
     }
 
     render() {
@@ -61,14 +89,14 @@ export default class FomrRegister extends Component {
                             <div className="container-inputs">
                                 <div className="inputs-item">
                                     <label>Nombres</label>
-                                    <input name="first_name" type="text" onChange={this.handleChangeInputs}/>
+                                    <input value={this.state.first_name} name="first_name" type="text" onChange={this.handleChangeInputs}/>
                                 </div>
                                 <div className="inputs-item">                                <label>Apellidos</label>
-                                    <input name="last_name" type="text" onChange={this.handleChangeInputs} />
+                                    <input value={this.state.last_name} name="last_name" type="text" onChange={this.handleChangeInputs} />
                                 </div>
                                 <div className="inputs-item">                                
                                     <label>Edad</label>
-                                    <input name="age" type="number" onChange={this.handleChangeInputs}/>
+                                    <input value={this.state.age} name="age" type="number" onChange={this.handleChangeInputs}/>
                                 </div>
                                 <div className="inputs-item">                 
                                 <label>Sexo</label>               
@@ -86,15 +114,15 @@ export default class FomrRegister extends Component {
                             <div className="container-inputs">
                                 <div className="inputs-item">                           
                                     <label>País</label>
-                                    <input name="country" type="text" onChange={this.handleChangeInputs}/>
+                                    <input value={this.state.country} name="country" type="text" onChange={this.handleChangeInputs}/>
                                 </div>
                                 <div className="inputs-item">                                
                                     <label>Departamento o estado</label>
-                                    <input name="department" type="text" onChange={this.handleChangeInputs} />
+                                    <input value={this.state.department} name="department" type="text" onChange={this.handleChangeInputs} />
                                 </div>
                                 <div  className="inputs-item">                                
                                     <label>Municipio</label>
-                                    <input name="city" type="text" onChange={this.handleChangeInputs} />
+                                    <input value={this.state.city} name="city" type="text" onChange={this.handleChangeInputs} />
                                 </div>
                             </div>    
                         </div>
