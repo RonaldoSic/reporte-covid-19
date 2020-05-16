@@ -29,7 +29,7 @@ export async function setPeopleData(data) {
         return ''
     });
 
-    console.log(taman + variable)
+    // console.log(taman + variable)
     fetch(proxyUrl + ruta, {
         method: "POST",
         headers: {
