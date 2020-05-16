@@ -5,6 +5,7 @@ import { Line, Bar } from 'react-chartjs-2';
 import { byCountry, searchCountry} from '../Data/countryData'
 import FomrRegister from './formRegister'
 import ViewPeople from './viewPeople';
+import SearchData from './searchData'
 export default class Section extends Component {
     static propTypes = {
         title:PropTypes.string.isRequired,
@@ -146,7 +147,7 @@ export default class Section extends Component {
                 </div>
                 {id_section==="pais"?<div className="container-select">{selectPais}</div>:''}
                 {id_section==="insert-data"
-                    ?<div><FomrRegister /> <ViewPeople /></div>
+                    ?<div><FomrRegister /> <ViewPeople /> <SearchData /></div>
                     :<div className="chart-section">
                         {id_section==="mundial"
                             ?<Bar data= {dataChar} options={CharBar}/>

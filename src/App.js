@@ -7,6 +7,7 @@ import { guateData } from './Data/guateData'
 import { byCountry, searchCountry } from './Data/countryData'
 import { globalData } from './Data/dataGlobal';
 import {titlesAllSections} from './Data/titlesAndContext';
+import Footer from './components/footer'
 export default class App extends Component {
   constructor(props){
     super(props);
@@ -106,6 +107,7 @@ export default class App extends Component {
           title={tituloInsert}
           description={parrafInsert}
           />
+          <Footer />
         </>
     )
   }
