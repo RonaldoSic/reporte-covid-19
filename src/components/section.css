@@ -1,6 +1,6 @@
 .section{
     box-shadow: -5px -5px 10px .3px #aaa, 5px 5px 5px #bbb;
-    /* height: 100vh; */
+    /* height: auto; */
     width: 95%;
     overflow: hidden;
     background-color: var(--bg-sections);

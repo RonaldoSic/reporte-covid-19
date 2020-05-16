@@ -1,0 +1,51 @@
+footer{
+    width: 100%;
+    height: 30vh;
+    background-color: #333333;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;    
+    align-items: center;
+    padding: 2% 5%;
+}
+footer .col-container{
+    height: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+}
+
+.col-container .nts {
+    width: 100%;
+    text-align: center;
+}
+.col-container .nts h4{
+    color: #81a8cc;
+    font-size: 1.5em;    
+}
+.nts .enlaces{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    align-self: flex-start;
+    padding: 1% 10%;
+    text-align: left;
+
+}
+
+
+
+.nts .enlaces a{
+    text-decoration: none;
+    color: #aca5a5;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+.escod{
+    color: #54d10c;
+    font-size: .8em;
+}

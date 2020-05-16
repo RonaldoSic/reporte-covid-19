@@ -1,15 +1,6 @@
 import React, { Component } from 'react'
 import './viewPeople.css'
 import {getPeopleData} from '../Data/usDataPeople'
-const aa = (<tr className="row-info">
-    <td>Peter</td>
-    <td>Griffin</td>
-    <td>$100</td>
-    <td>Peter</td>
-    <td>Griffin</td>
-    <td>$100</td>
-    <td>$100</td>
-</tr>);
 export default class ViewPeople extends Component {
     constructor(props){
         super(props)
@@ -21,38 +12,27 @@ export default class ViewPeople extends Component {
     // Get data people
     loadPeoplesData = async () =>{
         const allDatapeople = await getPeopleData();
-        console.log(allDatapeople)
-        const row = allDatapeople.map((data) =>
-            <tr className="row-info" key={data.code}>
-                <td>{data.first_name}</td>
-                <td>{data.last_name}</td>
-                <td>{data.age}</td>
-                <td>{data.gender}</td>
-                <td>{data.country}</td>
-                <td>{data.department}</td>
-                <td>{data.city}</td>
-            </tr>
-        )
-        
-        this.setState({rowTableSubComponet: row})
-        // console.log(this.state.rowTableSubComponet)
-        // allDatapeople.nombres.forEach(element => {
-        //     console.log(element)
-        // });
+        // console.log(allDatapeople,'+++')
+        const row = allDatapeople.map(people =>{
+            return(
+                <tr key={people.code}className="row-info">
+                    <td>{people.first_name}</td>
+                    <td>{people.last_name}</td>
+                    <td>{people.age}</td>
+                    <td>{people.gender}</td>
+                    <td>{people.country}</td>
+                    <td>{people.department}</td>
+                    <td>{people.city}</td>
+                </tr>
+            )
+        });
+    this.setState({rowTableSubComponet: row})        
     }
-
-
-
 
     async componentDidMount() {
-        // await this.loadDataPeople();
         await this.loadPeoplesData();
     }
-     // consultamos nuesteos datos 
-    loadDataPeople = async () =>{
-        // const dataPeople = await getPeopleData();
-        // console.log(dataPeople)
-    }
+    
     render() {
         return (
             <div className ='card-container'>
