@@ -12,11 +12,11 @@ export async function searchWithBody(query){
     let consulta = await fetch(url, {
         method: 'PATCH',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            "genero":query.genero,
-            "pais":query.pais,
-            "departamento":query.departamento,
-            "municipio_ciudad":query.municipio_ciudad
+        body: JSON.stringify({            
+            "edadMin": query.edadMin,
+            'edadMax': query.edadMax,
+            'buscarEsto' : query.buscarEsto,
+            'opcionNum': query.opcionNum
         }),
         cache: 'no-cache'
     });

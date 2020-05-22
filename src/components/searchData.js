@@ -1,47 +1,74 @@
 import React, { Component } from 'react'
 import './searchData.css'
 import {searchPeople, searchWithBody} from '../Data/myapiCovid'
-const ObjetQuery = {
-    genero :'Masculino desde React',
-    pais:'Guatemala E',
-    departamento:'Totonicapan p',
-    municipio_ciudad: "Totonicapan"
-}
 export default class SearchData extends Component {
     constructor(props){
         super(props)
-        this.state = {
-            datoABuscar:'',
+        this.state = {            
             holderInput:'Buscar...',
             dataResponse: [],
-            componentResponse: null,
-            removeItem: 'show item_result'
-            
+            componentResponse: null,            
+            itemSelected: 'País',            
+            datoABuscar:'',
+            optionAux: 1,
+            edadMinAux: 0,
+            edadMaxAux: 0,
+            objetoRequest: {                
+                edadMin: 0,
+                edadMax: 0,
+                buscarEsto:'',
+                parametro:'',
+                opcionNum: 1
+            }            
+        }
+    }    
+    // aplica al Input, coloca el valor en el state de datoAbuscar 
+    onChange = async (e) =>{
+        this.setState({datoABuscar: e.target.value})         
+    }  
+    // Envia los datos al servidor para realiar las consultas  
+    onsubmit = async (e) =>{
+        e.preventDefault();                        
+        if(this.state.datoABuscar !== ''){
+        const {datoABuscar,optionAux,itemSelected,edadMinAux,edadMaxAux} =this.state;        
+        this.setState({objetoRequest: {
+            edadMin: edadMinAux,
+            edadMax: edadMaxAux,
+            buscarEsto:datoABuscar,
+            parametro:itemSelected,
+            opcionNum: optionAux
+        }})
+        await this.loadData(this.state.datoABuscar);
+        await this.loadDataWithBody()
+        }else{
+            alert('Ingresa los datos Adecuados')
         }
     }
-    onRemove  = () =>{
-        console.log('Ya se deb de elimin')
-        this.setState({removeItem: 'no_show'})
+    // Aplica para los RadiosButton para colocar el item seleccionado
+    onChangeOption = (e) =>{        
+        const valor = e.target.name;
+        let numOption = 1;        
+        switch(valor){
+            case 'País': numOption = 1; break;
+            case 'Departamento': numOption = 2; break;
+            case 'Municipio': numOption = 3; break;
+            case 'Genero': numOption = 4; break;
+            case 'Rango de edades': numOption = 5; break;
+            default:
+                console.log('Default')
+                break;
+        }        
+        this.setState({itemSelected: valor, optionAux: numOption})
     }
-    onChange = async (e) =>{
-        this.setState({datoABuscar: e.target.value})        
-        // await this.loadData(e.target.value);
-    }
-    onsubmit = async (e) =>{
-        e.preventDefault();        
-        console.log('Buscado gente por pais')
-        await this.loadData(this.state.datoABuscar);
-        
-    }
-    // Metodo para hacer la peticion 
+    // Metodo para hacer la peticion por pais
     loadData = async (pais) =>{
         const dataP = await searchPeople(pais);
-        console.log(dataP,'estos don los datos')
+        // console.log(dataP,'Respuesta del servidor')
         this.setState({dataResponse : dataP})   
         const datosAMostrar = await this.showData()         
         this.setState({componentResponse:datosAMostrar})  
     }
-    // Meto para renderizar los resultados de la consulta
+    // Meto para renderizar el render de los datos retornados por el servidor
     showData = async () => {
         const resultQuery = this.state.dataResponse.map((people, i) => 
             <li className={this.state.removeItem} key={people.id}>
@@ -53,16 +80,14 @@ export default class SearchData extends Component {
             </div>         
         return itemUl;        
     }
-
-    loadDatacBody = async () => {
-        const dataP = await searchWithBody(ObjetQuery);
-        console.log('Bodu de delas cnsulta ', dataP)
+    // Metodo para realizar la consulta con body y sacar datos del servidor
+    loadDataWithBody = async () => {
+        const {objetoRequest} = this.state;
+        const dataP = await searchWithBody(objetoRequest);
+        console.log('Body de la consulta ', dataP)
     }
-
-    async componentDidMount() {
-        // await this.loadData(); 
-        await this.loadDatacBody()
-    }
+    // Meto para testiar los metodos de consulta
+    async componentDidMount() {}
 
     render() {
         const {holderInput}= this.state;
@@ -74,10 +99,41 @@ export default class SearchData extends Component {
                             <input className="input-search text" type="text" placeholder={holderInput} onChange={this.onChange} /> 
                             <input className="input-search btn" type="submit" value="Buscar"/>                            
                         </div>
-                        <label className="switchBtn">
-                            <input type="checkbox"/>
-                                <div className="slide round">Filter On</div>
-                        </label>
+                        <div className="options_container">
+                            <h3>Has tu busqueda por</h3>
+                            <div className="allOptions">
+                            <label className="labe_container">País
+                                <input type="radio" name="País" 
+                                onChange={this.onChangeOption} 
+                                checked={this.state.itemSelected === 'País'}/>
+                                <span className="checkmark"></span>
+                            </label>
+                            <label className="labe_container">Departamento
+                                <input type="radio" name="Departamento"
+                                onChange={this.onChangeOption} 
+                                checked={this.state.itemSelected === 'Departamento'} />
+                                <span className="checkmark"></span>
+                            </label>
+                            <label className="labe_container">Municipio
+                                <input type="radio" name="Municipio"
+                                onChange={this.onChangeOption} 
+                                checked={this.state.itemSelected === 'Municipio'}/>
+                                <span className="checkmark"></span>
+                            </label>
+                            <label className="labe_container">Genero
+                                <input type="radio" name="Genero" 
+                                onChange={this.onChangeOption} 
+                                checked={this.state.itemSelected === 'Genero'}/>
+                                <span className="checkmark"></span>
+                            </label>
+                            <label className="labe_container">Rango de edades
+                                <input type="radio" name="Rango de edades" 
+                                onChange={this.onChangeOption} 
+                                checked={this.state.itemSelected === 'Rango de edades'}/>
+                                <span className="checkmark"></span>
+                            </label>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div className="container_result">
@@ -87,11 +143,3 @@ export default class SearchData extends Component {
         )
     }
 }
-
-
-
-
-/*
-parametros de busqueda son 
-Pais, municipio, edad, sexo
-*/ 
