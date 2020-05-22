@@ -1,7 +1,7 @@
 .search-container {
     /* border: #00000083 solid 1px; */
     width: 90%;
-    height: 50vh;
+    /* height: 50vh; */
     margin: 0 auto;
     border-radius: 20px;
     background-color: #e8eff08a;
@@ -52,4 +52,83 @@
 }
 .item-seach-form .btn:hover{
     background-color: #08ac47;
+}
+/* Datos a mostrar */
+.search-container .container_result{
+    margin-top: 5%;
+    background-color: #fff;
+    border-radius: 1em;
+    box-shadow: 0 5px 8px #00000067;
+    height: 100%;
+    padding: 3%;
+}
+.container_result .resultSearch_container .ul_result{
+    list-style: none;
+}
+.resultSearch_container .item_result {
+    /* display: block; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: start;
+    border-bottom: #a2b4b8 solid 1.3px;
+}
+.item_result .name_lastname{
+    font-size: 1.3em;
+    color: #1908b1;    
+}
+
+/* stilos para el togle button */
+.form-search .switchBtn {
+    position: relative;
+    display: inline-block;
+    width: 110px;
+    height: 34px;
+}
+.form-search .switchBtn input {display:none;}
+
+.form-search .slide {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e2e2e2;
+    -webkit-transition: .4s;
+    transition: .4s;
+    font-size: 1.1em;
+    padding: 5%;
+    color: #ff0000;
+}
+.form-search .slide:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 78px;
+    bottom: 4px;
+    background-color: #272626;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.form-search .switchBtn input:checked + .slide {
+    background-color: #8CE196;
+    padding-left: 40px;
+}
+.form-search .switchBtn input:focus + .slide {
+    box-shadow: 0 0 1px #01aeed;
+}
+.form-search .switchBtn input:checked + .slide:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+    left: -20px;
+}
+
+.slide.round {
+    border-radius: 34px;
+}
+.slide.round:before {
+    border-radius: 50%;
 }

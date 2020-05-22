@@ -1,55 +1,32 @@
 
-const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-const ruta = 'https://whispering-crag-35590.herokuapp.com/api/v1/cov19/';
-let authorization = 'Token 54cff33ba441ec3aeec3d444a6c2cf6ea653a76d';
+// const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+const ruta = 'http://localhost:4000/api/personas';
 
 export async function getPeopleData() {
-
-    let response = await fetch(proxyUrl+ruta ,{
-        method: 'GET',
-        headers:{
-            Authorization: authorization
-        }
-    });
-    let res = await response.json();
-    const arrayData = res.results;  
-    console.log(arrayData);
-    // console.log(typeof(arrayData),'Es ')
+    const ruta = `http://127.0.0.1:4000/api/personas`;
+    const resp = await fetch(ruta);
+    const arrayData = await resp.json();
     return arrayData;    
 }
 
-console.log(getPeopleData())
-export async function setPeopleData(data) {
-    let taman = 0
-    let lengthkey = await getPeopleData()
-    lengthkey.map((item, index) => {
-        if (index !== undefined) {
-            taman = index
-        }
-        return ''
-    });
-
-    // console.log(taman + variable)
-    fetch(proxyUrl + ruta, {
+// console.log(getPeopleData())
+export async function setPeopleData(data) {    
+    fetch(ruta, {
         method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: authorization
-        },
+        headers: {'Content-Type': 'application/json'},
         body:
-            JSON.stringify({
-                "code": taman + 1,
-                "first_name": data.first_name,
-                "last_name": data.last_name,
-                "age": data.age,
-                "gender": data.gender,
-                "country": data.country,
-                "department": data.department,
-                "city": data.city
+            JSON.stringify({            
+                "nombres": data.first_name,
+                "apellidos": data.last_name,
+                "edad": data.age,
+                "genero": data.gender,
+                "pais": data.country,
+                "departamento": data.department,
+                "municipio_ciudad": data.city
             })
     })
         .then(response => {
-            console.log(response);
+            // console.log(response);
         })
         .catch(err => {
             console.log(err);

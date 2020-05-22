@@ -13,27 +13,24 @@ export default class ViewPeople extends Component {
     loadPeoplesData = async () =>{
         const allDatapeople = await getPeopleData();
         // console.log(allDatapeople,'+++')
-        const row = allDatapeople.map(people =>{
-        
+        const row = allDatapeople.map(people =>{        
             return(
-                <tr key={people.code} className="row-info">
-                    <td>{people.first_name}</td>
-                    <td>{people.last_name}</td>
-                    <td>{people.age}</td>
-                    <td>{people.gender}</td>
-                    <td>{people.country}</td>
-                    <td>{people.department}</td>
-                    <td>{people.city}</td>
+                <tr key={people.id} className="row-info">
+                    <td>{people.nombres}</td>
+                    <td>{people.apellidos}</td>
+                    <td>{people.edad}</td>
+                    <td>{people.genero}</td>
+                    <td>{people.pais}</td>
+                    <td>{people.departamento}</td>
+                    <td>{people.municipio_ciudad}</td>
                 </tr>
             )
         });
     this.setState({rowTableSubComponet: row})        
     }
-
     async componentDidMount() {
         await this.loadPeoplesData();
-    }
-    
+    }    
     render() {
         return (
             <div className ='card-container'>
