@@ -1,9 +1,11 @@
 
 // const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-const ruta = 'http://localhost:4000/api/personas';
+// const ruta = 'http://localhost:4000/api/personas';
+const ruta = `https://mysterious-sea-15774.herokuapp.com/api/personas`;
 
 export async function getPeopleData() {
-    const ruta = `http://127.0.0.1:4000/api/personas`;
+    // const ruta = `http://127.0.0.1:4000/api/personas`;
+    const ruta =`https://mysterious-sea-15774.herokuapp.com/api/personas`
     const resp = await fetch(ruta);
     const arrayData = await resp.json();
     return arrayData;    

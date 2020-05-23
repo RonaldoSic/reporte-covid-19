@@ -63,7 +63,7 @@ export default class SearchData extends Component {
         }})        
         await this.loadDataWithBody();
         await this.createGraphic();
-        console.log(this.state)
+        // console.log(this.state)
     }
     // OnChange 2 para los imputs de edades
     onChange2 = (e) =>{

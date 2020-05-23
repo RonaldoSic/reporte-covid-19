@@ -8,7 +8,8 @@ return data;
 }
 
 export async function searchWithBody(query){
-    const url = `http://127.0.0.1:4000/api/personas/`;
+    // const url = `http://127.0.0.1:4000/api/personas/`;
+    const url = `https://mysterious-sea-15774.herokuapp.com/api/personas`
     let consulta = await fetch(url, {
         method: 'PATCH',
         headers: {'Content-Type': 'application/json'},
