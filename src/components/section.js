@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import './section.css';
-import { Line, Bar } from 'react-chartjs-2';
+import { Line, Bar,  } from 'react-chartjs-2';
 import { byCountry, searchCountry} from '../Data/countryData'
 import FomrRegister from './formRegister'
 import ViewPeople from './viewPeople';

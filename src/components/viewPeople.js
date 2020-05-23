@@ -44,7 +44,7 @@ export default class ViewPeople extends Component {
                             <th>Edad</th>
                             <th>Genero</th>
                             <th>País</th>
-                            <th>Depatameto</th>
+                            <th>Departameto</th>
                             <th>Municipio</th>
                         </tr> 
                         </thead>

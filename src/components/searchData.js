@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import './searchData.css'
-import {searchPeople, searchWithBody} from '../Data/myapiCovid'
+import {searchWithBody} from '../Data/myapiCovid'
+import { Doughnut } from 'react-chartjs-2';
 export default class SearchData extends Component {
     constructor(props){
         super(props)
         this.state = {            
             holderInput:'Buscar...',
+            graphicComponent: null,
             dataResponse: [],
             componentResponse: null,            
             itemSelected: 'País',            
@@ -19,7 +21,11 @@ export default class SearchData extends Component {
                 buscarEsto:'',
                 parametro:'',
                 opcionNum: 1
-            }            
+            },
+            mujeres:0,
+            hombres:0,
+            Otros:0,
+            formularioEdades: null
         }
     }    
     // aplica al Input, coloca el valor en el state de datoAbuscar 
@@ -37,13 +43,50 @@ export default class SearchData extends Component {
             buscarEsto:datoABuscar,
             parametro:itemSelected,
             opcionNum: optionAux
-        }})
-        await this.loadData(this.state.datoABuscar);
-        await this.loadDataWithBody()
+        }})        
+        await this.loadDataWithBody();
+        await this.createGraphic();
         }else{
             alert('Ingresa los datos Adecuados')
         }
     }
+    // Sumbit para edadaes
+    onSumbit2 = async (e) =>{
+        e.preventDefault();
+        const {datoABuscar,optionAux,itemSelected,edadMinAux,edadMaxAux} =this.state;        
+        this.setState({objetoRequest: {
+            edadMin: edadMinAux,
+            edadMax: edadMaxAux,
+            buscarEsto:datoABuscar,
+            parametro:itemSelected,
+            opcionNum: optionAux
+        }})        
+        await this.loadDataWithBody();
+        await this.createGraphic();
+        console.log(this.state)
+    }
+    // OnChange 2 para los imputs de edades
+    onChange2 = (e) =>{
+        if(e.target.name === 'min'){
+            this.setState({edadMinAux: e.target.value})
+        }else{
+            this.setState({edadMaxAux: e.target.value})
+        }        
+    }
+
+    // Metodo para crear un peque;o formulario para las edades
+    submitByAge = async () =>{
+        const form2 = <div>
+            <form onSubmit={this.onSumbit2} className="formulario2">
+                <input className="it2" placeholder="Minimo" name="min" type="number" onChange={this.onChange2}/>
+                <input className="it2" placeholder="Maximo" name="max" type="number" onChange={this.onChange2}/>
+                <input className="it2B" type="submit" value="Buscar"/>
+            </form>
+        </div>
+        this.setState({formularioEdades: form2})
+        
+    }
+
     // Aplica para los RadiosButton para colocar el item seleccionado
     onChangeOption = (e) =>{        
         const valor = e.target.name;
@@ -58,37 +101,101 @@ export default class SearchData extends Component {
                 console.log('Default')
                 break;
         }        
-        this.setState({itemSelected: valor, optionAux: numOption})
-    }
-    // Metodo para hacer la peticion por pais
-    loadData = async (pais) =>{
-        const dataP = await searchPeople(pais);
-        // console.log(dataP,'Respuesta del servidor')
-        this.setState({dataResponse : dataP})   
-        const datosAMostrar = await this.showData()         
-        this.setState({componentResponse:datosAMostrar})  
-    }
+        let minEdad, maxEdad;
+        if(numOption === 5){
+            this.submitByAge();
+            // minEdad = prompt("Dime la edad minima para filtrar")
+            // // console.log(minEdad)
+            // maxEdad = prompt("Dime la edad maxima para filtrar")
+            // console.log(maxEdad)
+        }        
+        this.setState({itemSelected: valor, optionAux: numOption, edadMaxAux:maxEdad, edadMinAux:minEdad})
+        
+    }    
     // Meto para renderizar el render de los datos retornados por el servidor
     showData = async () => {
         const resultQuery = this.state.dataResponse.map((people, i) => 
-            <li className={this.state.removeItem} key={people.id}>
+            <li className="item_result" key={people.id}>
                 <h4 className="name_lastname">{people.nombres+' '+people.apellidos}</h4>                
             </li>                    
         )      
         const itemUl = <div className="resultSearch_container">
                 <ul className="ul_result">{resultQuery}</ul>
-            </div>         
+            </div>  
+        // Cuantificando los hombres y mujeres
+        let man = [], woman =[], other = [];
+        this.state.dataResponse.map(persona => {            
+            switch(persona.genero){
+                case 'Masculino': 
+                    man.push(persona.genero);
+                break;
+                case 'Femenino': 
+                    woman.push(persona.genero);
+                break;
+                case 'Otro': 
+                    other.push(persona.genero);
+                break;
+                default: break;
+            }
+            return ''
+        })
+        // console.log(`Hay ${woman.length} mujeres`)        
+        // console.log(`Hay ${man.length} hombres`)
+        // console.log(`Hay ${other.length} Gay`)
+        this.setState({mujeres:woman.length,hombres:man.length,Otros:other.length})
         return itemUl;        
     }
     // Metodo para realizar la consulta con body y sacar datos del servidor
     loadDataWithBody = async () => {
         const {objetoRequest} = this.state;
         const dataP = await searchWithBody(objetoRequest);
-        console.log('Body de la consulta ', dataP)
+        this.setState({dataResponse:dataP})
+        const mostrarDato = await this.showData();                
+        this.setState({componentResponse: mostrarDato})                
+    }
+    // Meto para renderizar las graficas
+    createGraphic = async () =>{
+        const {mujeres,hombres,Otros}= this.state;
+        const obGrap ={
+        labels: ['Mujeres', 'Hombres', 'Otros'],
+        datasets: [
+                {
+                    label: 'Genero',
+                    backgroundColor: [
+                        '#D72638',
+                        '#12355B',
+                        '#6457A6'
+                    ],
+                    hoverBackgroundColor: [
+                        '#EF767A',
+                        '#7692FF',
+                        '#7D7ABC'
+                    ],
+                    data: [mujeres,hombres,Otros]
+                }
+            ]
+        }
+        // 
+    const graphic = <Doughnut
+        data={obGrap}
+        options={{
+            title:{
+                display:true,
+                text:'Grafica por genero',
+                fontSize:35                
+                },
+            legend:{
+                display:true,
+                position:'right'
+            }
+        }} />
+
+    this.setState({graphicComponent: graphic})
     }
     // Meto para testiar los metodos de consulta
-    async componentDidMount() {}
-
+    async componentDidMount() {
+        // this.createGraphic();
+    }
     render() {
         const {holderInput}= this.state;
         return (
@@ -136,8 +243,12 @@ export default class SearchData extends Component {
                         </div>
                     </form>
                 </div>
+                <div>{this.state.formularioEdades}</div>
                 <div className="container_result">
                     {this.state.componentResponse}
+                </div>
+                <div>
+                    {this.state.graphicComponent}
                 </div>
             </div>
         )

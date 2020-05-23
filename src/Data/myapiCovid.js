@@ -21,5 +21,5 @@ export async function searchWithBody(query){
         cache: 'no-cache'
     });
     let data = await consulta.json()
-    return data 
+    return data; 
 }
